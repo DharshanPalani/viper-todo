@@ -2,16 +2,36 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [tasks, setTasks] = useState(["Task 1"]);
+  const [newTask, setNewTasks] = useState("");
 
-  function HandleClick() {
-    setCount((count) => count + 1);
-  }
+function HandleInputChange(event){
+  setNewTasks(event.target.value);
+}
+function add(){
+  setTasks(t => [...t,newTask])
+  setNewTasks("");
+}
 
   return (
     <>
-      <h1>Click the button below</h1>
-      <button onClick={() => HandleClick()}>Button:{count}</button>
+      <div className="todolist">
+        <input
+        type="text"
+        placeholder="type somthing.."
+        value={newTask}
+        onChange={HandleInputChange}
+        />
+        <button onClick={add}>Add</button>
+        <ol>
+          {tasks.map((task,index) =>
+          <li key={index}>
+            <span>{task}</span>
+          </li>         
+          )}
+        </ol>
+
+      </div>
     </>
   );
 }
